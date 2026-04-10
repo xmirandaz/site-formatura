@@ -59,7 +59,7 @@
             gap: 8px;
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 8px; /* Reduzido para colar no botão */
+            margin-bottom: 8px;
             background: rgba(255, 255, 255, 0.05);
             padding: 6px 12px;
             border-radius: 20px;
@@ -140,6 +140,11 @@
             width: 100%;
             overflow: hidden;
             position: relative;
+            /* BLOQUEIO TOTAL DE INTERAÇÃO DO USUÁRIO */
+            pointer-events: none; 
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         .carousel-wrapper::before,
@@ -150,6 +155,7 @@
             width: 15%;
             height: 100%;
             z-index: 2;
+            pointer-events: none;
         }
 
         .carousel-wrapper::before {
@@ -169,17 +175,13 @@
             animation: scroll-left 25s linear infinite;
         }
 
-        .carousel-track:hover {
-            animation-play-state: paused;
-        }
-
-        /* Imagens menores para o carrossel compacto não roubar a cena da foto estática */
         .carousel-compact .carousel-track img {
             width: 140px;
             height: 186px;
             object-fit: contain;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-user-drag: none;
         }
 
         /* Carrossel Original (Para os prints do WhatsApp) */
@@ -202,6 +204,7 @@
             object-fit: contain;
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-user-drag: none;
         }
 
         @keyframes scroll-left {
@@ -468,7 +471,7 @@
                         </svg>
                     </div>
                     <h4>1. Envie suas fotos e detalhes</h4>
-                    <p>Basta nos enviar algumas selfies seguindo nossas instruções e nos informar detalhes do seu ensaio para máxima personalização.</p>
+                    <p>Contato direto com o Especialista que vai te instruir ao enviar as selfies e os detalhes do seu pedido para máxima personalização.</p>
                 </div>
 
                 <div class="step-card">
@@ -503,7 +506,7 @@
         <div class="container fade-in">
             <img src="assets/images/lucas.webp" alt="Foto do Especialista" class="profile-img">
             <h3>Lucas Miranda<br>Especialista em Fotos por IA</h3>
-            <p> Miranda teve sua primeira experiência profissional aos 15 anos na multinacional IBM e viu a Inteligência Artificial surgir com o Machine Learning. Após <strong>7 anos como fotógrafo de eventos</strong>, viu o potencial das IAs de mudar o mercado de fotos e criou seu próprio negócio; o <strong>Studio Luna</strong>. Já gerou dezenas de ensaios para clientes de todo Brasil e tem como missão tornar as fotos profissionais, antes vistas como artigo de luxo, <strong>acessíveis para todos.</strong></p>
+            <p> Miranda teve sua primeira experiência profissional aos 15 anos na multinacional IBM e viu a Inteligência Artificial surgir com o Machine Learning. Após <strong>7 anos como fotógrafo de eventos</strong>, viu o potencial das IAs para mudar o mercado de fotos e criou seu próprio negócio: o <strong>Studio Luna</strong>. Já gerou dezenas de ensaios para clientes de todo o Brasil e tem como missão tornar as fotos profissionais, antes vistas como artigo de luxo, <strong>acessíveis para todos.</strong></p>
         </div>
     </section>
 
@@ -526,24 +529,27 @@
     <script>
         // --- 1. CONFIGURAÇÃO DOS CONFETES ---
         window.addEventListener('load', function() {
-            var count = 200;
-            var defaults = {
-                origin: { y: 0.6 },
-                colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
-                zIndex: 9999
-            };
+            // Atraso de 300ms garante que a tela já desenhou tudo antes de explodir
+            setTimeout(function() {
+                var count = 300; // Quantidade aumentada para um estouro mais denso
+                var defaults = {
+                    origin: { y: 0.75 }, // Mais para baixo para a explosão subir pela tela
+                    colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
+                    zIndex: 9999
+                };
 
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
-            }
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, {
+                        particleCount: Math.floor(count * particleRatio)
+                    }));
+                }
 
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
+                fire(0.25, { spread: 26, startVelocity: 65 }); // Velocidade inicial aumentada
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+                fire(0.1, { spread: 120, startVelocity: 35, decay: 0.92, scalar: 1.2 });
+                fire(0.1, { spread: 120, startVelocity: 55 });
+            }, 300);
         });
 
         // --- 2. RESTANTE DOS SCRIPTS ---
