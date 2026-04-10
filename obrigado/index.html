@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado! | Studio Luna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --purple-dark: #1f0b3b;
+            --purple-glow: rgba(62, 22, 117, 0.5);
+            --cta-green: #25D366; /* Verde oficial do WhatsApp */
+            --cta-green-hover: #1EBE5D;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Classes Utilitárias e Animações */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão do WhatsApp */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            background-color: var(--cta-green);
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 18px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--cta-green-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .cta-button svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Seção Principal de Obrigado */
+        .thank-you-section {
+            padding: 40px 0; 
+            text-align: center;
+            background: radial-gradient(circle at top, var(--purple-dark) 0%, var(--bg-color) 70%);
+            flex: 1; /* Faz a seção empurrar o footer para baixo caso a tela seja muito grande */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            max-height: 50px;
+            width: auto;
+            margin-bottom: 30px; 
+            display: inline-block;
+        }
+
+        .thank-you-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px; 
+            background: linear-gradient(to right, #fff, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .thank-you-section p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight-text {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Container do Vídeo (Proporção 16:9 perfeita para YouTube/Vimeo) */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Mantém proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px var(--purple-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-container iframe, 
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        /* Texto placeholder caso você não tenha colocado o iframe ainda */
+        .video-placeholder-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background-color: var(--bg-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .thank-you-section h1 { font-size: 2rem; }
+            .thank-you-section p.subtitle { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="thank-you-section">
+        <div class="container fade-in">
+            <img src="https://i.ibb.co/fdMzL02L/logo.webp" alt="Logo Studio Luna" class="brand-logo">
+            
+            <h1>Obrigado pela confiança! 🎉</h1>
+            
+            <p class="subtitle">
+                Seu pagamento foi aprovado com sucesso. <br>
+                <span class="highlight-text">Assista ao vídeo abaixo com muita atenção</span> para saber como enviar suas selfies e acelerar a entrega do seu ensaio.
+            </p>
+            
+            <div class="video-container">
+                <div class="video-placeholder-text">
+                    [Cole o código de incorporação do seu vídeo aqui]
+                </div>
+                </div>
+
+            <a href="https://wa.me/5511921824150?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20pagamento%20do%20meu%20ensaio%20de%20formatura%20e%20assisti%20ao%20v%C3%ADdeo." class="cta-button" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                </svg>
+                CHAMAR ESPECIALISTA NO WHATSAPP
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        2026 &copy; CNPJ: 65.135.920/0001-62<br>Studio Luna. Todos os direitos reservados.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // --- CONFIGURAÇÃO DO ESTOURO DE CONFETES ---
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var count = 300; 
+                var defaults = {
+                    origin: { y: 0.75 }, 
+                    colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
+                    zIndex: 9999
+                };
+
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, {
+                        particleCount: Math.floor(count * particleRatio)
+                    }));
+                }
+
+                fire(0.25, { spread: 26, startVelocity: 65 }); 
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+                fire(0.1, { spread: 120, startVelocity: 35, decay: 0.92, scalar: 1.2 });
+                fire(0.1, { spread: 120, startVelocity: 55 });
+            }, 300);
+        });
+
+        // --- OBSERVER PARA FADE IN ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
