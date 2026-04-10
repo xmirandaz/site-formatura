@@ -1,580 +1,591 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotos de Formatura com Inteligência Artificial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #0f0f0f;
-            --purple-dark: #1f0b3b;
-            --purple-glow: rgba(62, 22, 117, 0.5);
-            --cta-green: #10B981;
-            --cta-green-hover: #059669;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --icon-purple: #a855f7;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotos de Formatura com Inteligência Artificial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --purple-dark: #1f0b3b;
+            --purple-glow: rgba(62, 22, 117, 0.5);
+            --cta-green: #10B981;
+            --cta-green-hover: #059669;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --icon-purple: #a855f7;
+        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html {
+            scroll-behavior: smooth;
+        }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-        /* Classes Utilitárias e Animações */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        /* Classes Utilitárias e Animações */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        .secure-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
+        .secure-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px; /* Reduzido para colar no botão */
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
 
-        .cta-button {
-            display: inline-block;
-            width: 100%;
-            max-width: 400px;
-            background-color: var(--cta-green);
-            color: white;
-            font-weight: 800;
-            font-size: 1.1rem;
-            text-align: center;
-            padding: 18px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .cta-button {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            background-color: var(--cta-green);
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 18px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-        .cta-button:hover {
-            background-color: var(--cta-green-hover);
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
+        .cta-button:hover {
+            background-color: var(--cta-green-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
 
-        /* 1. Hero Section */
-        .hero {
-            padding: 10px 0 5px; 
-            text-align: center;
-            background: radial-gradient(circle at top, var(--purple-dark) 0%, var(--bg-color) 70%);
-        }
+        /* 1. Hero Section */
+        .hero {
+            padding: 10px 0 30px; 
+            text-align: center;
+            background: radial-gradient(circle at top, var(--purple-dark) 0%, var(--bg-color) 70%);
+        }
 
-        .brand-logo {
-            max-height: 50px;
-            width: auto;
-            margin-bottom: 5px; 
-            display: inline-block;
-        }
+        .brand-logo {
+            max-height: 50px;
+            width: auto;
+            margin-bottom: 5px; 
+            display: inline-block;
+        }
 
-        .hero-mockup {
-            max-width: 400px; 
-            width: 100%;
-            height: auto; 
-            border-radius: 12px; 
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px var(--purple-glow);
-            border: none; 
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px; 
+            background: linear-gradient(to right, #fff, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 24px; 
-            background: linear-gradient(to right, #fff, #d8b4fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .hero-mockup {
+            max-width: 400px; 
+            width: 100%;
+            height: auto; 
+            border-radius: 12px; 
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px var(--purple-glow);
+            border: none; 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-        /* 2 & 4. Carrosséis Genéricos */
-        .carousel-section {
-            padding: 40px 0; 
-            text-align: center;
-            overflow: hidden;
-            background-color: #121212;
-        }
+        /* Carrossel Compacto (Abaixo da foto estática) */
+        .carousel-compact {
+            padding: 0 0 20px 0;
+            text-align: center;
+            overflow: hidden;
+            width: 100%;
+        }
 
-        .carousel-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: var(--text-main);
-        }
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
 
-        .carousel-wrapper {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
+        .carousel-wrapper::before,
+        .carousel-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 15%;
+            height: 100%;
+            z-index: 2;
+        }
 
-        .carousel-wrapper::before,
-        .carousel-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 15%;
-            height: 100%;
-            z-index: 2;
-        }
+        .carousel-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-color) 0%, transparent 100%);
+        }
 
-        .carousel-wrapper::before {
-            left: 0;
-            background: linear-gradient(to right, #121212 0%, transparent 100%);
-        }
+        .carousel-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-color) 0%, transparent 100%);
+        }
 
-        .carousel-wrapper::after {
-            right: 0;
-            background: linear-gradient(to left, #121212 0%, transparent 100%);
-        }
+        .carousel-track {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            animation: scroll-left 25s linear infinite;
+        }
 
-        .carousel-track {
-            display: flex;
-            gap: 20px;
-            width: max-content;
-            animation: scroll-left 25s linear infinite;
-        }
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
 
-        .carousel-track:hover {
-            animation-play-state: paused;
-        }
+        /* Imagens menores para o carrossel compacto não roubar a cena da foto estática */
+        .carousel-compact .carousel-track img {
+            width: 140px;
+            height: 186px;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-        .carousel-track img {
-            width: 200px;
-            height: 266px;
-            object-fit: contain;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        /* Carrossel Original (Para os prints do WhatsApp) */
+        .carousel-section {
+            padding: 40px 0; 
+            text-align: center;
+            overflow: hidden;
+            background-color: #121212;
+        }
 
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 10px)); }
-        }
+        .carousel-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
 
-        /* 3. Feedbacks */
-        .feedbacks-section {
-            padding: 15px 0; 
-            background: linear-gradient(to bottom, var(--bg-color), var(--purple-dark));
-        }
+        .carousel-section .carousel-track img {
+            width: 200px;
+            height: 266px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-        .feedbacks-section h2 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-        }
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 7.5px)); }
+        }
 
-        .feedback-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-            backdrop-filter: blur(10px);
-        }
+        /* 3. Feedbacks */
+        .feedbacks-section {
+            padding: 40px 0; 
+            background: linear-gradient(to bottom, var(--bg-color), var(--purple-dark));
+        }
 
-        .feedback-stars {
-            color: #fbbf24;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
+        .feedbacks-section h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
 
-        .feedback-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #e4e4e7;
-            margin-bottom: 12px;
-            font-style: italic;
-        }
+        .feedback-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
 
-        .feedback-author {
-            font-weight: 600;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
+        .feedback-stars {
+            color: #fbbf24;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
 
-        /* NOVO: CTA do Meio */
-        .middle-cta-section {
-            padding: 20px 0 30px; /* Margens reduzidas para aproximar das seções */
-            text-align: center;
-            background-color: var(--bg-color);
-        }
+        .feedback-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e4e4e7;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
 
-        /* 4. Como Funciona */
-        .how-it-works-section {
-            padding: 30px 0; /* Espaço reduzido (era 60px) */
-            background-color: #121212;
-            text-align: center;
-        }
+        .feedback-author {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
 
-        .how-it-works-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            color: var(--text-main);
-        }
+        /* CTA do Meio */
+        .middle-cta-section {
+            padding: 20px 0 30px; 
+            text-align: center;
+            background-color: var(--bg-color);
+        }
 
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
+        /* 4. Como Funciona */
+        .how-it-works-section {
+            padding: 40px 0; 
+            background-color: #121212;
+            text-align: center;
+        }
 
-        .step-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 30px 20px;
-            transition: transform 0.3s ease;
-        }
+        .how-it-works-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--text-main);
+        }
 
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
 
-        .step-icon {
-            margin-bottom: 20px;
-        }
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px 20px;
+            transition: transform 0.3s ease;
+        }
 
-        .step-icon svg {
-            width: 48px;
-            height: 48px;
-            stroke: var(--icon-purple);
-            stroke-width: 1.5;
-            fill: none;
-        }
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
 
-        .step-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
+        .step-icon {
+            margin-bottom: 20px;
+        }
 
-        .step-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+        .step-icon svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--icon-purple);
+            stroke-width: 1.5;
+            fill: none;
+        }
 
-        /* 5. Sobre a Autoridade */
-        .about-section {
-            padding: 5px 0 15px; /* Espaço reduzido (era 50px) para aproximar do Como Funciona */
-            text-align: center;
-            background-color: var(--bg-color);
-        }
+        .step-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: contain;
-            margin-bottom: 16px;
-            border: 3px solid var(--purple-glow);
-        }
+        .step-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
 
-        .about-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 16px;
-        }
+        /* 5. Sobre a Autoridade */
+        .about-section {
+            padding: 30px 0; 
+            text-align: center;
+            background-color: var(--bg-color);
+        }
 
-        .about-section p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: contain;
+            margin-bottom: 16px;
+            border: 3px solid var(--purple-glow);
+        }
 
-        /* 6. CTA Final */
-        .final-cta-section {
-            padding: 15px 0 10px; 
-            text-align: center;
-            background: radial-gradient(circle at bottom, var(--purple-dark) 0%, var(--bg-color) 70%);
-        }
+        .about-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
 
-        /* 7. Footer */
-        .footer {
-            text-align: center;
-            padding: 24px 20px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            background-color: var(--bg-color);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .about-section p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .steps-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
+        /* 6. CTA Final */
+        .final-cta-section {
+            padding: 20px 0 40px; 
+            text-align: center;
+            background: radial-gradient(circle at bottom, var(--purple-dark) 0%, var(--bg-color) 70%);
+        }
 
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 1.6rem; }
-            .hero-mockup { width: 260px; height: 346px; } 
-            .carousel-track img { width: 160px; height: 213px; }
-        }
-    </style>
+        /* 7. Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background-color: var(--bg-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6rem; }
+            .hero-mockup { width: 260px; height: 346px; } 
+            .carousel-section .carousel-track img { width: 160px; height: 213px; }
+            .carousel-compact .carousel-track img { width: 120px; height: 160px; }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="hero">
-        <div class="container fade-in">
-            <img src="assets/images/logo.webp" alt="Logo Studio Luna" class="brand-logo">
-            
-            <img src="assets/images/oferta1.webp" alt="Exemplo de foto de formatura IA" class="hero-mockup">
-            
-            <h1>Seu ensaio de formatura completo, sem estúdio, sem fotógrafo e sem sair de casa. Por apenas R$4,70 cada foto!</h1>
-            
-            <div class="secure-tag">
-                🔒 Pagamento 100% seguro
-            </div>
-            <br>
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
-        </div>
-    </header>
+    <header class="hero">
+        <div class="container fade-in">
+            <img src="assets/images/logo.webp" alt="Logo Studio Luna" class="brand-logo">
+            
+            <h1>Seu ensaio de formatura completo, sem estúdio, sem fotógrafo e sem sair de casa. Por apenas R$4,70 cada foto!</h1>
+            
+            <img src="assets/images/oferta1.webp" alt="Exemplo de foto de formatura IA" class="hero-mockup">
+            
+            <div class="carousel-compact">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track js-carousel-track">
+                        <img src="assets/images/formatura1.webp" alt="Resultado 1">
+                        <img src="assets/images/formatura2.webp" alt="Resultado 2">
+                        <img src="assets/images/formatura3.webp" alt="Resultado 3">
+                        <img src="assets/images/formatura4.webp" alt="Resultado 4">
+                        <img src="assets/images/formatura5.webp" alt="Resultado 5">
+                    </div>
+                </div>
+            </div>
 
-    <section class="carousel-section">
-        <div class="container fade-in">
-            <h2>Resultados reais de formandos como você</h2>
-        </div>
-        <div class="carousel-wrapper fade-in">
-            <div class="carousel-track js-carousel-track">
-                <img src="assets/images/formatura1.webp" alt="Resultado 1">
-                <img src="assets/images/formatura2.webp" alt="Resultado 2">
-                <img src="assets/images/formatura3.webp" alt="Resultado 3">
-                <img src="assets/images/formatura4.webp" alt="Resultado 4">
-                <img src="assets/images/formatura5.webp" alt="Resultado 5">
-            </div>
-        </div>
-    </section>
+            <div class="secure-tag">
+                🔒 Pagamento 100% seguro
+            </div>
+            <br>
+            
+            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
+        </div>
+    </header>
 
-    <section class="feedbacks-section">
-        <div class="container fade-in">
-            <h2>Quem já fez, recomenda!</h2>
-            
-            <div class="feedback-card">
-                <div class="feedback-stars">★★★★★</div>
-                <p class="feedback-text">"Eu não acreditava que ia ficar tão bom! Parece realmente que eu fui a um estúdio caro. Economizei muito tempo e dinheiro."</p>
-                <p class="feedback-author">— Mariana S., Medicina</p>
-            </div>
+    <section class="feedbacks-section">
+        <div class="container fade-in">
+            <h2>Quem já fez, recomenda!</h2>
+            
+            <div class="feedback-card">
+                <div class="feedback-stars">★★★★★</div>
+                <p class="feedback-text">"Eu não acreditava que ia ficar tão bom! Parece realmente que eu fui a um estúdio caro. Economizei muito tempo e dinheiro."</p>
+                <p class="feedback-author">— Mariana S., Medicina</p>
+            </div>
 
-            <div class="feedback-card">
-                <div class="feedback-stars">★★★★★</div>
-                <p class="feedback-text">"Rapidez impressionante e a qualidade das imagens é surreal. Minha família toda amou as fotos do convite."</p>
-                <p class="feedback-author">— Murilo T., Engenharia</p>
-            </div>
-            
-            <div class="feedback-card">
-                <div class="feedback-stars">★★★★★</div>
-                <p class="feedback-text">"Estava desesperada porque perdi o prazo das fotos da turma. O Miranda salvou minha formatura! Ficaram perfeitas."</p>
-                <p class="feedback-author">— Camila R., Direito</p>
-            </div>
-        </div>
-    </section>
+            <div class="feedback-card">
+                <div class="feedback-stars">★★★★★</div>
+                <p class="feedback-text">"Rapidez impressionante e a qualidade das imagens é surreal. Minha família toda amou as fotos do convite."</p>
+                <p class="feedback-author">— Murilo T., Engenharia</p>
+            </div>
+            
+            <div class="feedback-card">
+                <div class="feedback-stars">★★★★★</div>
+                <p class="feedback-text">"Estava desesperada porque perdi o prazo das fotos da turma. O Miranda salvou minha formatura! Ficaram perfeitas."</p>
+                <p class="feedback-author">— Camila R., Direito</p>
+            </div>
+        </div>
+    </section>
 
-    <section class="carousel-section" style="background-color: var(--bg-color);">
-        <div class="container fade-in">
-            <h2>Avaliações que chegam no nosso WhatsApp</h2>
-        </div>
-        <div class="carousel-wrapper fade-in">
-            <div class="carousel-track js-carousel-track" style="animation-direction: reverse;">
-                <img src="assets/images/prova1.webp" alt="Print de Feedback 1">
-                <img src="assets/images/prova2.webp" alt="Print de Feedback 2">
-                <img src="assets/images/prova3.webp" alt="Print de Feedback 3">
-                <img src="assets/images/prova4.webp" alt="Print de Feedback 4">
-                <img src="assets/images/prova5.webp" alt="Print de Feedback 5">
-            </div>
-        </div>
-    </section>
+    <section class="carousel-section" style="background-color: var(--bg-color);">
+        <div class="container fade-in">
+            <h2>Avaliações que chegam no nosso WhatsApp</h2>
+        </div>
+        <div class="carousel-wrapper fade-in">
+            <div class="carousel-track js-carousel-track" style="animation-direction: reverse;">
+                <img src="assets/images/prova1.webp" alt="Print de Feedback 1">
+                <img src="assets/images/prova2.webp" alt="Print de Feedback 2">
+                <img src="assets/images/prova3.webp" alt="Print de Feedback 3">
+                <img src="assets/images/prova4.webp" alt="Print de Feedback 4">
+                <img src="assets/images/prova5.webp" alt="Print de Feedback 5">
+            </div>
+        </div>
+    </section>
 
-    <section class="middle-cta-section fade-in">
-        <div class="container">
-            <div class="secure-tag">
-                🔒 Pagamento 100% seguro
-            </div>
-            <br>
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
-        </div>
-    </section>
+    <section class="middle-cta-section fade-in">
+        <div class="container">
+            <div class="secure-tag">
+                🔒 Pagamento 100% seguro
+            </div>
+            <br>
+            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
+        </div>
+    </section>
 
-    <section class="how-it-works-section">
-        <div class="container fade-in">
-            <h2>Como funciona?</h2>
-            <div class="steps-grid">
-                
-                <div class="step-card">
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                        </svg>
-                    </div>
-                    <h4>1. Envie suas fotos e detalhes</h4>
-                    <p>Basta nos enviar algumas selfies seguindo nossas instruções e nos informar detalhes do seu ensaio para máxima personalização.</p>
-                </div>
+    <section class="how-it-works-section">
+        <div class="container fade-in">
+            <h2>Como funciona?</h2>
+            <div class="steps-grid">
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h4>1. Envie suas fotos e detalhes</h4>
+                    <p>Basta nos enviar algumas selfies seguindo nossas instruções e nos informar detalhes do seu ensaio para máxima personalização.</p>
+                </div>
 
-                <div class="step-card">
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                    </div>
-                    <h4>2. A IA faz a mágica</h4>
-                    <p>Nossa técnologia de ponta analisa seus traços e cria o cenário perfeito com todos os detallhes que você nos solicitou.</p>
-                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h4>2. A IA faz a mágica</h4>
+                    <p>Nossa técnologia de ponta analisa seus traços e cria o cenário perfeito com todos os detallhes que você nos solicitou.</p>
+                </div>
 
-                <div class="step-card">
-                    <div class="step-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                    </div>
-                    <h4>3. Receba e brilhe</h4>
-                    <p>Com o máximo de agilidade, seu ensaio é entregue em alta resolução, pronto para imprimir ou postar no Instagram.</p>
-                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h4>3. Receba e brilhe</h4>
+                    <p>Com o máximo de agilidade, seu ensaio é entregue em alta resolução, pronto para imprimir ou postar no Instagram.</p>
+                </div>
 
-            </div>
-        </div>
-    </section>
+            </div>
+        </div>
+    </section>
 
-    <section class="about-section">
-        <div class="container fade-in">
-            <img src="assets/images/lucas.webp" alt="Foto do Especialista" class="profile-img">
-            <h3>Lucas Miranda<br>Especialista em Fotos por IA</h3>
-            <p> Miranda teve sua primeira experiência profissional aos 15 anos na multinacional IBM e viu a Inteligência Artificial surgir com o Machine Learning. Após <strong>7 anos como fotógrafo de eventos</strong>, viu o potencial das IAs de mudar o mercado de fotos e criou seu próprio negócio; o <strong>Studio Luna</strong>. Já gerou dezenas de ensaios para clientes de todo Brasil e tem como missão tornar as fotos profissionais, antes vistas como artigo de luxo, <strong>acessíveis para todos.</strong></p>
-        </div>
-    </section>
+    <section class="about-section">
+        <div class="container fade-in">
+            <img src="assets/images/lucas.webp" alt="Foto do Especialista" class="profile-img">
+            <h3>Lucas Miranda<br>Especialista em Fotos por IA</h3>
+            <p> Miranda teve sua primeira experiência profissional aos 15 anos na multinacional IBM e viu a Inteligência Artificial surgir com o Machine Learning. Após <strong>7 anos como fotógrafo de eventos</strong>, viu o potencial das IAs de mudar o mercado de fotos e criou seu próprio negócio; o <strong>Studio Luna</strong>. Já gerou dezenas de ensaios para clientes de todo Brasil e tem como missão tornar as fotos profissionais, antes vistas como artigo de luxo, <strong>acessíveis para todos.</strong></p>
+        </div>
+    </section>
 
-    <section class="final-cta-section" id="checkout">
-        <div class="container fade-in">
-            <div class="secure-tag">
-                🔒 Pagamento 100% seguro
-            </div>
-            <br>
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">GARANTIR MINHAS FOTOS DE FORMATURA</a>
-        </div>
-    </section>
+    <section class="final-cta-section" id="checkout">
+        <div class="container fade-in">
+            <div class="secure-tag">
+                🔒 Pagamento 100% seguro
+            </div>
+            <br>
+            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">GARANTIR MINHAS FOTOS DE FORMATURA</a>
+        </div>
+    </section>
 
-    <footer class="footer">
-        2026 &copy; CNPJ: 65.135.920/0001-62<br>Studio Luna. Todos os direitos reservados.
-    </footer>
+    <footer class="footer">
+        2026 &copy; CNPJ: 65.135.920/0001-62<br>Studio Luna. Todos os direitos reservados.
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        // --- 1. CONFIGURAÇÃO DOS CONFETES ---
-        window.addEventListener('load', function() {
-            var count = 200;
-            // Cores: Verde (repetido para ser maioria), Roxo claro, Branco e Azul
-            var defaults = {
-                origin: { y: 0.6 },
-                colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
-                zIndex: 9999 // Garante que o confete fique por cima de tudo
-            };
+    <script>
+        // --- 1. CONFIGURAÇÃO DOS CONFETES ---
+        window.addEventListener('load', function() {
+            var count = 200;
+            var defaults = {
+                origin: { y: 0.6 },
+                colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
+                zIndex: 9999
+            };
 
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
-            }
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
 
-            // Dispara o efeito de "estouro" realista
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
-        });
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        });
 
-        // --- 2. RESTANTE DOS SCRIPTS ---
-        // Duplicar itens do carrossel para criar o efeito de loop infinito suave
-        document.querySelectorAll('.js-carousel-track').forEach(track => {
-            const children = Array.from(track.children);
-            children.forEach(child => {
-                const clone = child.cloneNode(true);
-                clone.setAttribute('aria-hidden', 'true');
-                track.appendChild(clone);
-            });
-        });
+        // --- 2. RESTANTE DOS SCRIPTS ---
+        document.querySelectorAll('.js-carousel-track').forEach(track => {
+            const children = Array.from(track.children);
+            children.forEach(child => {
+                const clone = child.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+        });
 
-        // Intersection Observer para as animações de Fade In na rolagem
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(element => {
-            observer.observe(element);
-        });
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
 
-        // Função para rolagem suave do botão principal para o checkout (Mantida caso queira usar futuramente)
-        function scrollToCheckout(e) {
-            e.preventDefault();
-            const targetId = e.currentTarget.getAttribute('href');
-            if (targetId === '#checkout') {
-                document.querySelector('#checkout').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            } else {
-                window.location.href = targetId; 
-            }
-        }
-    </script>
+        function scrollToCheckout(e) {
+            e.preventDefault();
+            const targetId = e.currentTarget.getAttribute('href');
+            if (targetId === '#checkout') {
+                document.querySelector('#checkout').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                window.location.href = targetId; 
+            }
+        }
+    </script>
 </body>
 </html>
