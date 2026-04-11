@@ -79,16 +79,61 @@
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s, opacity 0.3s;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .cta-button:hover {
+        .cta-button:hover:not(.disabled) {
             background-color: var(--cta-green-hover);
             transform: scale(1.02);
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* ESTILO DO BOTÃO DESATIVADO */
+        .cta-button.disabled {
+            background-color: #3f3f46;
+            color: #a1a1aa;
+            box-shadow: none;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* ESTILO DA CAIXA DE TERMOS DE USO */
+        .terms-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+            max-width: 450px;
+            margin: 0 auto 20px auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        .terms-container:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .terms-container input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--cta-green);
+            flex-shrink: 0;
+        }
+
+        .terms-container label {
+            font-size: 0.85rem;
+            color: #fff;
+            line-height: 1.5;
+            cursor: pointer;
         }
 
         /* 1. Hero Section */
@@ -128,7 +173,7 @@
             margin-right: auto;
         }
 
-        /* Carrossel Compacto (Abaixo da foto estática) */
+        /* Carrossel Compacto */
         .carousel-compact {
             padding: 0 0 20px 0;
             text-align: center;
@@ -140,7 +185,6 @@
             width: 100%;
             overflow: hidden;
             position: relative;
-            /* BLOQUEIO TOTAL DE INTERAÇÃO DO USUÁRIO */
             pointer-events: none; 
             user-select: none;
             -webkit-user-select: none;
@@ -184,7 +228,7 @@
             -webkit-user-drag: none;
         }
 
-        /* Carrossel Original (Para os prints do WhatsApp) */
+        /* Carrossel Original */
         .carousel-section {
             padding: 40px 0; 
             text-align: center;
@@ -374,6 +418,7 @@
             .hero-mockup { width: 260px; height: 346px; } 
             .carousel-section .carousel-track img { width: 160px; height: 213px; }
             .carousel-compact .carousel-track img { width: 120px; height: 160px; }
+            .terms-container { flex-direction: row; }
         }
     </style>
 </head>
@@ -404,7 +449,7 @@
             </div>
             <br>
             
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
+            <a href="#checkout" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
         </div>
     </header>
 
@@ -453,7 +498,7 @@
                 🔒 Pagamento 100% seguro
             </div>
             <br>
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
+            <a href="#checkout" class="cta-button">QUERO MINHAS FOTOS AGORA</a>
         </div>
     </section>
 
@@ -512,11 +557,20 @@
 
     <section class="final-cta-section" id="checkout">
         <div class="container fade-in">
+            
+            <div class="terms-container">
+                <input type="checkbox" id="terms-checkbox">
+                <label for="terms-checkbox">
+                    <strong>Li e concordo que este é um serviço digital personalizado, iniciado imediatamente após o pagamento. Autorizo sua execução e reconheço que, após a entrega das fotos geradas, não se aplica o direito de arrependimento de 7 dias (Art. 49 do CDC).</strong>
+                </label>
+            </div>
+
             <div class="secure-tag">
                 🔒 Pagamento 100% seguro
             </div>
             <br>
-            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" class="cta-button">GARANTIR MINHAS FOTOS DE FORMATURA</a>
+            
+            <a href="https://pay.kirvano.com/01fd075f-d267-4f44-a86d-bc3880af0b34" id="checkout-button" class="cta-button disabled">GARANTIR MINHAS FOTOS DE FORMATURA</a>
         </div>
     </section>
 
@@ -529,11 +583,10 @@
     <script>
         // --- 1. CONFIGURAÇÃO DOS CONFETES ---
         window.addEventListener('load', function() {
-            // Atraso de 300ms garante que a tela já desenhou tudo antes de explodir
             setTimeout(function() {
-                var count = 300; // Quantidade aumentada para um estouro mais denso
+                var count = 300; 
                 var defaults = {
-                    origin: { y: 0.75 }, // Mais para baixo para a explosão subir pela tela
+                    origin: { y: 0.75 }, 
                     colors: ['#10B981', '#10B981', '#10B981', '#d8b4fe', '#ffffff', '#3b82f6'],
                     zIndex: 9999
                 };
@@ -544,7 +597,7 @@
                     }));
                 }
 
-                fire(0.25, { spread: 26, startVelocity: 65 }); // Velocidade inicial aumentada
+                fire(0.25, { spread: 26, startVelocity: 65 }); 
                 fire(0.2, { spread: 60 });
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
                 fire(0.1, { spread: 120, startVelocity: 35, decay: 0.92, scalar: 1.2 });
@@ -552,7 +605,19 @@
             }, 300);
         });
 
-        // --- 2. RESTANTE DOS SCRIPTS ---
+        // --- 2. LÓGICA DO CHECKBOX DE TERMOS E CONDIÇÕES ---
+        const termsCheckbox = document.getElementById('terms-checkbox');
+        const checkoutButton = document.getElementById('checkout-button');
+
+        termsCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkoutButton.classList.remove('disabled');
+            } else {
+                checkoutButton.classList.add('disabled');
+            }
+        });
+
+        // --- 3. RESTANTE DOS SCRIPTS (Carrossel e Animações) ---
         document.querySelectorAll('.js-carousel-track').forEach(track => {
             const children = Array.from(track.children);
             children.forEach(child => {
@@ -580,18 +645,6 @@
         document.querySelectorAll('.fade-in').forEach(element => {
             observer.observe(element);
         });
-
-        function scrollToCheckout(e) {
-            e.preventDefault();
-            const targetId = e.currentTarget.getAttribute('href');
-            if (targetId === '#checkout') {
-                document.querySelector('#checkout').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            } else {
-                window.location.href = targetId; 
-            }
-        }
     </script>
 </body>
 </html>
