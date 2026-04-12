@@ -50,7 +50,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
             width: 100%;
@@ -124,7 +124,6 @@
             width: auto;
             margin-bottom: 30px; 
             display: inline-block;
-            transition: max-height 0.3s ease;
         }
 
         .thank-you-section h1 {
@@ -150,10 +149,10 @@
             font-weight: 600;
         }
 
-        /* Container do Vídeo 9:16 */
+        /* Container do Vídeo */
         .video-container {
             position: relative;
-            padding-bottom: 145%; 
+            padding-bottom: 145%; /* Mobile mantém o foco vertical */
             height: 0;
             overflow: hidden;
             width: 100%;
@@ -162,8 +161,7 @@
             border-radius: 12px;
             margin: 0 auto 40px auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px var(--purple-glow);
-            transition: max-width 0.3s ease;
+            box-shadow: 0 10px 40px var(--purple-glow);
         }
 
         .video-container iframe {
@@ -187,13 +185,19 @@
             margin-top: auto;
         }
 
-        /* --- RESPONSIVIDADE PC --- */
+        /* --- CORREÇÃO PARA DESKTOP: Matando a "Tripinha" --- */
         @media (min-width: 1024px) {
             .thank-you-section { padding: 80px 0; }
-            .brand-logo { max-height: 120px; margin-bottom: 40px; }
+            .brand-logo { max-height: 110px; margin-bottom: 40px; }
             .thank-you-section h1 { font-size: 3.5rem; margin-bottom: 24px; }
             .thank-you-section p.subtitle { font-size: 1.4rem; max-width: 800px; margin-bottom: 50px; }
-            .video-container { max-width: 420px; } 
+            
+            /* Engordando o vídeo no PC */
+            .video-container { 
+                max-width: 500px; /* De 420px para 500px */
+                padding-bottom: 135%; /* Ligeiramente menos alto para parecer mais robusto */
+            } 
+            
             .cta-button { max-width: 500px; padding: 22px 30px; font-size: 1.2rem; }
         }
 
