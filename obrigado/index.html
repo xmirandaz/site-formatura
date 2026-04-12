@@ -6,6 +6,21 @@
     <title>Obrigado! | Studio Luna</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1949849072404451');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1949849072404451&ev=PageView&noscript=1"
+    /></noscript>
     <style>
         :root {
             --bg-color: #0f0f0f;
@@ -128,10 +143,14 @@
             max-width: 600px;
         }
 
-        /* AJUSTE DO CONTAINER PARA REMOVER BARRAS PRETAS */
+        .highlight-text {
+            color: #fff;
+            font-weight: 600;
+        }
+
         .video-container {
             position: relative;
-            padding-bottom: 145%; /* Reduzido de 177% para remover as barras no topo/fundo */
+            padding-bottom: 145%; 
             height: 0;
             overflow: hidden;
             width: 100%;
@@ -147,9 +166,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 101%; /* Um pouquinho maior para garantir que não sobre borda lateral */
+            width: 101%; 
             height: 101%;
-            transform: translate(-50%, -50%) scale(1.05); /* Pequeno zoom para "matar" barras pretas internas */
+            transform: translate(-50%, -50%) scale(1.05); 
             border: 0;
             border-radius: 12px;
         }
