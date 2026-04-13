@@ -162,12 +162,35 @@
 
         /* AJUSTE PARA PC (Telas maiores que 1024px) */
         @media (min-width: 1024px) {
+            .thank-you-section {
+                padding: 80px 0;
+            }
+            .brand-logo {
+                max-height: 120px;
+                margin-bottom: 40px;
+            }
+            .thank-you-section h1 {
+                font-size: 3.5rem;
+                margin-bottom: 24px;
+            }
+            .thank-you-section p.subtitle {
+                font-size: 1.3rem;
+                /* --- CORREÇÃO DE CENTRALIZAÇÃO PARA PC --- */
+                margin-left: auto;
+                margin-right: auto;
+                /* --- FIM DA CORREÇÃO --- */
+                max-width: 800px;
+                margin-bottom: 50px;
+            }
             .video-container {
                 padding-bottom: 56.25%; /* PADRÃO PC: 16:9 Horizontal */
                 max-width: 800px; /* Alarga o player no computador para matar a 'tripinha' */
             }
-            .thank-you-section h1 { font-size: 3rem; }
-            .thank-you-section p.subtitle { font-size: 1.3rem; }
+            .cta-button {
+                max-width: 500px;
+                padding: 22px 30px;
+                font-size: 1.2rem;
+            }
         }
 
         .footer {
