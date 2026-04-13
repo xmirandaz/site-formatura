@@ -45,7 +45,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
             width: 100%;
@@ -136,14 +136,15 @@
 
         .highlight-text { color: #fff; font-weight: 600; }
 
-        /* --- PLAYER 16:9 PADRÃO YOUTUBE --- */
+        /* --- CONFIGURAÇÃO HÍBRIDA DO VÍDEO --- */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 exato */
+            padding-bottom: 177.77%; /* PADRÃO MOBILE: 9:16 Vertical */
             height: 0;
             overflow: hidden;
             width: 100%;
-            background: #1a1a1a;
+            max-width: 320px; /* Limita largura no celular para não distorcer */
+            background: #000;
             border-radius: 12px;
             margin: 0 auto 40px auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -159,6 +160,16 @@
             border: 0;
         }
 
+        /* AJUSTE PARA PC (Telas maiores que 1024px) */
+        @media (min-width: 1024px) {
+            .video-container {
+                padding-bottom: 56.25%; /* PADRÃO PC: 16:9 Horizontal */
+                max-width: 800px; /* Alarga o player no computador para matar a 'tripinha' */
+            }
+            .thank-you-section h1 { font-size: 3rem; }
+            .thank-you-section p.subtitle { font-size: 1.3rem; }
+        }
+
         .footer {
             text-align: center;
             padding: 24px 20px;
@@ -167,11 +178,6 @@
             background-color: var(--bg-color);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             margin-top: auto;
-        }
-
-        @media (min-width: 1024px) {
-            .thank-you-section h1 { font-size: 3rem; }
-            .thank-you-section p.subtitle { font-size: 1.3rem; }
         }
 
         @media (max-width: 600px) {
@@ -211,7 +217,6 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Confetes rápidos
         window.addEventListener('load', function() {
             setTimeout(function() {
                 var count = 300; 
@@ -221,7 +226,6 @@
             }, 50);
         });
 
-        // Delay do botão (30 segundos)
         const btn = document.getElementById('whatsapp-btn');
         const btnText = document.getElementById('btn-text');
         setTimeout(() => { 
@@ -229,7 +233,6 @@
             btnText.innerText = 'CHAMAR ESPECIALISTA NO WHATSAPP'; 
         }, 30000);
 
-        // Fade-in
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.15 });
