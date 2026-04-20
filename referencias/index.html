@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escolha seu Pacote e Referências | Studio Luna</title>
+    <title>Pacotes e Referências | Studio Luna</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -365,7 +365,7 @@
     <div id="gallery-section" class="fade-section">
         <div class="instructions">
             <div class="step"><div class="step-num">1</div><div class="step-text"><b>Selecione:</b> Toque nas fotos que você mais gostou.</div></div>
-            <div class="step"><div class="step-num">2</div><div class="step-text"><b>Descreva:</b> Se quiser, escreva um detalhe que amou na foto selecionada.</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text"><b>Descreva:</b> Se quiser, escreva um detalhe que gostou ou que mudaria na foto selecionada.</div></div>
             <div class="step"><div class="step-num">3</div><div class="step-text"><b>Envie:</b> Clique no botão para enviar suas referências e seu pacote.</div></div>
         </div>
 
@@ -489,7 +489,7 @@
                     return selectedData[k] ? `${k} (${selectedData[k]})` : k;
                 }).join(', ');
                 
-                const msg = encodeURIComponent(`Olá Miranda! Escolhi o ${selectedPackage} para o ensaio de ${selectedType}. As minhas referências são: ${refList}`);
+                const msg = encodeURIComponent(`Escolhi o ${selectedPackage} para o ensaio de ${selectedType}. As minhas referências são: ${refList}`);
                 waBtn.href = `https://wa.me/${phone}?text=${msg}`;
             } else {
                 waBtn.style.display = 'none';
