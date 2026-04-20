@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referencias de Foto de Formatura | Studio Luna</title>
+    <title>Escolha seu Pacote e Referências | Studio Luna</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0c0f14;
             --card-bg: #161a21;
             --primary: #9B30FF;
+            --gold: #ffb703;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
         }
@@ -24,22 +25,173 @@
             align-items: center;
             padding: 20px;
             min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .logo { height: 50px; width: auto; margin-top: 10px; margin-bottom: 25px; }
 
         h1.main-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.4;
+            max-width: 600px;
         }
 
+        /* --- SESSÃO DE PACOTES --- */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas forçadas no celular */
+            gap: 12px;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .pkg-card {
+            background: #11141a;
+            border: 2px solid #2a2e38;
+            border-radius: 16px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pkg-card.premium { border-color: var(--gold); }
+        
+        .pkg-card:hover { transform: translateY(-4px); }
+
+        .pkg-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(155, 48, 255, 0.4);
+        }
+        
+        .pkg-card.premium.selected {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+        }
+
+        .badge-melhor {
+            position: absolute;
+            top: -12px;
+            background: var(--gold);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .check-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .pkg-card.selected .check-badge { display: flex; }
+
+        .pkg-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .pkg-name { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .pkg-price { font-size: 1.6rem; font-weight: 800; margin-bottom: 16px; }
+
+        .pkg-features {
+            list-style: none;
+            text-align: left;
+            font-size: 0.7rem;
+            color: #d1d5db;
+            margin-bottom: 20px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .pkg-features li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.3; }
+
+        .pkg-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pkg-card.premium .pkg-btn { background: var(--gold); color: #000; }
+        .pkg-card.selected .pkg-btn { background: var(--primary); color: white; }
+        .pkg-card.premium.selected .pkg-btn { background: var(--gold); color: #000; }
+
+        /* --- SELEÇÃO DE ENSAIO --- */
+        .fade-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .fade-section.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .type-selector {
+            width: 100%;
+            max-width: 480px;
+            margin: 20px 0 40px 0;
+            text-align: center;
+        }
+
+        .type-selector h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 16px;
+            background: var(--card-bg);
+            color: white;
+            border: 2px solid rgba(155, 48, 255, 0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        .custom-select:focus { border-color: var(--primary); }
+
+        /* --- GALERIA E REFERÊNCIAS --- */
         .instructions {
             max-width: 480px;
             width: 100%;
@@ -52,18 +204,9 @@
 
         .step { display: flex; align-items: flex-start; margin-bottom: 12px; }
         .step-num { 
-            background: var(--primary); 
-            color: white; 
-            width: 24px; 
-            height: 24px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 0.8rem; 
-            font-weight: 800; 
-            margin-right: 12px;
-            flex-shrink: 0;
+            background: var(--primary); color: white; width: 24px; height: 24px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 0.8rem; font-weight: 800; margin-right: 12px; flex-shrink: 0;
         }
         .step-text { font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); }
         .step-text b { color: #fff; }
@@ -100,15 +243,11 @@
 
         .photo-num {
             position: absolute;
-            top: 8px;
-            left: 8px;
+            top: 8px; left: 8px;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            z-index: 2;
+            padding: 2px 8px; border-radius: 6px;
+            font-size: 0.7rem; font-weight: 800; z-index: 2;
         }
 
         .photo-card.selected {
@@ -119,47 +258,27 @@
 
         .desc-input {
             display: none;
-            padding: 8px;
-            background: #111;
-            border: none;
-            color: white;
-            font-size: 0.75rem;
-            width: 100%;
-            border-top: 1px solid var(--primary);
-            outline: none;
+            padding: 8px; background: #111; border: none; color: white;
+            font-size: 0.75rem; width: 100%; border-top: 1px solid var(--primary); outline: none;
         }
 
-        .photo-card.selected .desc-input {
-            display: block;
-        }
+        .photo-card.selected .desc-input { display: block; }
 
+        /* --- BOTÃO FLUTUANTE --- */
         .footer-action {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            position: fixed; bottom: 0; left: 0; right: 0;
             padding: 20px;
             background: linear-gradient(transparent, var(--bg-color) 40%);
-            display: flex;
-            justify-content: center;
-            z-index: 100;
+            display: flex; justify-content: center; z-index: 100;
+            pointer-events: none; /* Não interfere no clique atrás dele quando invisível */
         }
 
         .btn-whatsapp {
-            background: var(--primary);
-            color: #fff;
-            text-decoration: none;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            border-radius: 14px;
-            text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 25px rgba(155, 48, 255, 0.4);
-            display: none;
-            animation: slideUp 0.3s ease-out;
+            background: var(--primary); color: #fff; text-decoration: none;
+            width: 100%; max-width: 400px; padding: 20px; border-radius: 14px;
+            text-align: center; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; box-shadow: 0 10px 25px rgba(155, 48, 255, 0.4);
+            display: none; animation: slideUp 0.3s ease-out; pointer-events: auto;
         }
 
         @keyframes slideUp {
@@ -167,27 +286,91 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px 140px 20px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
+        footer { text-align: center; padding: 40px 20px 140px 20px; font-size: 0.75rem; color: var(--text-muted); }
     </style>
 </head>
 <body>
 
     <img src="https://i.ibb.co/fdMzL02L/logo.webp" alt="Studio Luna" class="logo">
 
-    <h1 class="main-title">Referencias de Foto de Formatura</h1>
+    <h1 class="main-title">Escolha o pacote ideal para o seu ensaio e as fotos que mais gostar! ✨</h1>
 
-    <div class="instructions">
-        <div class="step"><div class="step-num">1</div><div class="step-text"><b>Selecione:</b> Toque nas fotos que você mais gostou.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text"><b>Descreva:</b> Se quiser, escreva um detalhe que amou na foto selecionada.</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text"><b>Envie:</b> Clique no botão para enviar suas referências para o Especialista direto no WhatsApp.</div></div>
+    <div class="packages-grid">
+        <div class="pkg-card" onclick="selectPackage('PACOTE BASIC', this)">
+            <div class="check-badge">✓</div>
+            <div class="pkg-icon">🥉</div>
+            <div class="pkg-name">Pacote Basic</div>
+            <div class="pkg-price">R$14,90</div>
+            <ul class="pkg-features">
+                <li>📸 1 Foto em Alta Definição</li>
+                <li>❌ Sem adição de pessoas</li>
+                <li>⏱ Entrega em 3 dias úteis</li>
+            </ul>
+            <button class="pkg-btn">Escolher este</button>
+        </div>
+
+        <div class="pkg-card" onclick="selectPackage('PACOTE ESSENCIAL', this)">
+            <div class="check-badge">✓</div>
+            <div class="pkg-icon">🥈</div>
+            <div class="pkg-name">Pacote Essencial</div>
+            <div class="pkg-price">R$29,90</div>
+            <ul class="pkg-features">
+                <li>📸 3 Fotos em Alta Definição</li>
+                <li>👤 +1 Pessoa Adicionada</li>
+                <li>⏱ Entrega em 3 dias úteis</li>
+            </ul>
+            <button class="pkg-btn">Escolher este</button>
+        </div>
+
+        <div class="pkg-card premium" onclick="selectPackage('PACOTE PREMIUM', this)">
+            <div class="badge-melhor">👑 Melhor Escolha</div>
+            <div class="check-badge">✓</div>
+            <div class="pkg-icon">🥇</div>
+            <div class="pkg-name">Pacote Premium</div>
+            <div class="pkg-price">R$49,90</div>
+            <ul class="pkg-features">
+                <li>📸 5 Fotos em Alta Definição</li>
+                <li>👥 +2 Pessoas Adicionadas</li>
+                <li>⚡ Entrega VIP (24 Horas)</li>
+            </ul>
+            <button class="pkg-btn">Escolher este</button>
+        </div>
+
+        <div class="pkg-card" onclick="selectPackage('PACOTE DELUXE', this)">
+            <div class="check-badge">✓</div>
+            <div class="pkg-icon">💎</div>
+            <div class="pkg-name">Pacote Deluxe</div>
+            <div class="pkg-price">R$69,90</div>
+            <ul class="pkg-features">
+                <li>📸 10 Fotos em Alta Definição</li>
+                <li>👨‍👩‍👧‍👦 +3 Pessoas (Família)</li>
+                <li>⚡ Entrega VIP (24 Horas)</li>
+            </ul>
+            <button class="pkg-btn">Escolher este</button>
+        </div>
     </div>
 
-    <div class="catalog-grid" id="catalog"></div>
+    <div id="type-section" class="fade-section">
+        <div class="type-selector">
+            <h2>Qual ensaio você vai fazer?</h2>
+            <select id="shoot-type" class="custom-select" onchange="handleTypeChange()">
+                <option value="" disabled selected>Escolha seu ensaio</option>
+                <option value="Aniversário">Aniversário</option>
+                <option value="Formatura">Formatura</option>
+                <option value="Gestante">Gestante</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="gallery-section" class="fade-section">
+        <div class="instructions">
+            <div class="step"><div class="step-num">1</div><div class="step-text"><b>Selecione:</b> Toque nas fotos que você mais gostou.</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text"><b>Descreva:</b> Se quiser, escreva um detalhe que amou na foto selecionada.</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text"><b>Envie:</b> Clique no botão para enviar suas referências e seu pacote.</div></div>
+        </div>
+
+        <div class="catalog-grid" id="catalog"></div>
+    </div>
 
     <div class="footer-action">
         <a href="#" id="wa-btn" class="btn-whatsapp" target="_blank">ENVIAR MINHAS REFERÊNCIAS</a>
@@ -196,40 +379,92 @@
     <footer>Studio Luna &copy; 2026<br>Todos os direitos reservados.</footer>
 
     <script>
-        const totalPhotos = 60;
-        const catalog = document.getElementById('catalog');
-        const waBtn = document.getElementById('wa-btn');
-        const phone = "5511980783213"; 
-
+        const phone = "5511921824150"; 
+        let selectedPackage = null;
+        let selectedType = null;
         let selectedData = {}; 
 
-        // Gera os 60 cards buscando na pasta assets
-        for (let i = 1; i <= totalPhotos; i++) {
-            // Garante o formato ref01, ref02... até ref60
-            const num = i < 10 ? `0${i}` : i;
-            const fileName = `ref${num}.webp`;
+        // 1. Lógica de seleção de Pacote
+        function selectPackage(pkgName, cardEl) {
+            selectedPackage = pkgName;
             
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.innerHTML = `
-                <div class="photo-num">REF ${num}</div>
-                <img src="assets/${fileName}" alt="Referência ${num}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                <input type="text" class="desc-input" placeholder="O que gostou nesta foto?" onclick="event.stopPropagation()">
-            `;
+            // Remove classe selected de todos e volta o texto do botão
+            document.querySelectorAll('.pkg-card').forEach(el => {
+                el.classList.remove('selected');
+                el.querySelector('.pkg-btn').innerText = 'Escolher este';
+            });
             
-            card.onclick = () => togglePhoto(num, card);
-            
-            const input = card.querySelector('.desc-input');
-            input.oninput = (e) => {
-                if(selectedData[num] !== undefined) {
-                    selectedData[num] = e.target.value;
-                    updateLink();
-                }
-            };
+            // Adiciona selected no clicado
+            cardEl.classList.add('selected');
+            cardEl.querySelector('.pkg-btn').innerText = 'Selecionado ✓';
 
-            catalog.appendChild(card);
+            // Revela a seção do tipo de ensaio com scroll suave
+            const typeSection = document.getElementById('type-section');
+            typeSection.style.display = 'flex';
+            setTimeout(() => {
+                typeSection.style.opacity = '1';
+                typeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+
+            updateLink();
         }
 
+        // 2. Lógica de seleção do Tipo de Ensaio
+        function handleTypeChange() {
+            const selectEl = document.getElementById('shoot-type');
+            selectedType = selectEl.value;
+            selectedData = {}; // Reseta seleções se mudar o ensaio
+            
+            generateGallery(selectedType);
+
+            // Revela a galeria
+            const gallerySection = document.getElementById('gallery-section');
+            gallerySection.style.display = 'flex';
+            setTimeout(() => {
+                gallerySection.style.opacity = '1';
+                gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+
+            updateLink();
+        }
+
+        // 3. Gerador da Galeria Dinâmica (60 fotos)
+        function generateGallery(type) {
+            const catalog = document.getElementById('catalog');
+            catalog.innerHTML = ''; // Limpa anterior
+            const totalPhotos = 60;
+
+            for (let i = 1; i <= totalPhotos; i++) {
+                const num = i < 10 ? `0${i}` : i;
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                
+                // Formatura usa a pasta assets, os outros usam placeholder temporário
+                let imgSrc = type === 'Formatura' 
+                    ? `assets/ref${num}.webp` 
+                    : `https://picsum.photos/seed/${type}${i}/400/533`;
+
+                card.innerHTML = `
+                    <div class="photo-num">REF ${num}</div>
+                    <img src="${imgSrc}" alt="Referência ${num}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                    <input type="text" class="desc-input" placeholder="O que gostou nesta foto?" onclick="event.stopPropagation()">
+                `;
+                
+                card.onclick = () => togglePhoto(num, card);
+                
+                const input = card.querySelector('.desc-input');
+                input.oninput = (e) => {
+                    if(selectedData[num] !== undefined) {
+                        selectedData[num] = e.target.value;
+                        updateLink();
+                    }
+                };
+
+                catalog.appendChild(card);
+            }
+        }
+
+        // 4. Lógica de Selecionar/Desmarcar Foto
         function togglePhoto(num, cardEl) {
             if (selectedData[num] !== undefined) {
                 delete selectedData[num];
@@ -242,15 +477,19 @@
             updateLink();
         }
 
+        // 5. Construtor do Link do WhatsApp
         function updateLink() {
+            const waBtn = document.getElementById('wa-btn');
             const keys = Object.keys(selectedData).sort();
-            if (keys.length > 0) {
+            
+            // Só libera o botão se tiver pacote, tipo de ensaio E pelo menos 1 foto selecionada
+            if (selectedPackage && selectedType && keys.length > 0) {
                 waBtn.style.display = 'block';
                 const refList = keys.map(k => {
                     return selectedData[k] ? `${k} (${selectedData[k]})` : k;
                 }).join(', ');
                 
-                const msg = encodeURIComponent(`Olá Miranda! As minhas referências são: ${refList}`);
+                const msg = encodeURIComponent(`Olá Miranda! Escolhi o ${selectedPackage} para o ensaio de ${selectedType}. As minhas referências são: ${refList}`);
                 waBtn.href = `https://wa.me/${phone}?text=${msg}`;
             } else {
                 waBtn.style.display = 'none';
